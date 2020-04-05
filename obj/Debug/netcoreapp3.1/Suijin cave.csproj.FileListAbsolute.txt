@@ -1,0 +1,14 @@
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Suijin cave.exe
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Suijin cave.deps.json
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Suijin cave.runtimeconfig.json
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Suijin cave.runtimeconfig.dev.json
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Suijin cave.dll
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Suijin cave.pdb
+C:\Users\Mihai\Desktop\Suijin cave\obj\Debug\netcoreapp3.1\Suijin cave.csprojAssemblyReference.cache
+C:\Users\Mihai\Desktop\Suijin cave\obj\Debug\netcoreapp3.1\Suijin cave.AssemblyInfoInputs.cache
+C:\Users\Mihai\Desktop\Suijin cave\obj\Debug\netcoreapp3.1\Suijin cave.AssemblyInfo.cs
+C:\Users\Mihai\Desktop\Suijin cave\obj\Debug\netcoreapp3.1\Suijin cave.csproj.CopyComplete
+C:\Users\Mihai\Desktop\Suijin cave\obj\Debug\netcoreapp3.1\Suijin cave.dll
+C:\Users\Mihai\Desktop\Suijin cave\obj\Debug\netcoreapp3.1\Suijin cave.pdb
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Love2dCS.dll
+C:\Users\Mihai\Desktop\Suijin cave\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

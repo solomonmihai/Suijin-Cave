@@ -1,0 +1,34 @@
+{
+  "name": "Suijin Cave",
+  "ogmoVersion": "3.3.0",
+  "levelPaths": ["."],
+  "backgroundColor": "#282c34ff",
+  "gridColor": "#3c4049cc",
+  "anglesRadians": true,
+  "directoryDepth": 5,
+  "layerGridDefaultSize": {"x": 8, "y": 8},
+  "levelDefaultSize": {"x": 320, "y": 240},
+  "levelMinSize": {"x": 128, "y": 128},
+  "levelMaxSize": {"x": 4096, "y": 4096},
+  "levelValues": [],
+  "defaultExportMode": ".json",
+  "compactExport": false,
+  "externalScript": "",
+  "playCommand": "",
+  "entityTags": [],
+  "layers": [
+    {
+      "definition": "tile",
+      "name": "map",
+      "gridSize": {"x": 16, "y": 16},
+      "exportID": "09623646",
+      "exportMode": 0,
+      "arrayMode": 1,
+      "defaultTileset": "tiles"
+    }
+  ],
+  "entities": [],
+  "tilesets": [
+    {"label": "tiles", "path": "tileset.png", "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABlElEQVR4nO3XvWqEQBQF4LNqOkkKQbDNPsDWef8i9T6A2wqChMB2qyaF6DrjqHd+hBDOBwsWe3XOdWbU0/n88YM/4P0ltvr/7dEBAMry8+Rz3cinOJQpvEUPbBu2JnH5c+t5oXn9PHz91QzHO7clT7OptnQYy5x4BiQrx7aMzYuB+lsWHj1Q3xuPEagWlyuKi/FYyqVGl6fZ4neURQOq6robQrIETOeQ1JnCLu54LziR0OaEq6qr00mL4qLU+iyZefg8zdQRB9gHjWPTg9tsfl7BtduxCH+A3U3QdefXw9vW1/dmmOr9ceEBwU3yfeS5nGMKDyB/NYQP+PYSAcOAJdPVdodvoYZfre+eh7vhA1N6udWIcWOTNEEPPq+XMoVXngYxlMa5SoBhsPqLjh5AOnhT7VgvakIPIFp52Rkff6GXgA1JIxKYZ9NWrbLR9Ss/AIiA/C3c0pjGqM+CECSb3+3RTd8DVrt99/wi9KHMgBbm9WvD5RwuQUKEJyIiIiIiIiIiIiIiIiIiIiIiIiIiIiKi/+kXsrOEJRbYmfwAAAAASUVORK5CYII=", "tileWidth": 16, "tileHeight": 16, "tileSeparationX": 0, "tileSeparationY": 0}
+  ]
+}
