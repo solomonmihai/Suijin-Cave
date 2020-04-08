@@ -7,6 +7,9 @@ namespace Suijin_cave
         public static Image Tileset { get; private set; }
         public static Image Handgun { get; private set; }
         public static Image Bullet { get; private set; }
+        public static Image M4A1 { get; private set; }
+
+
         public static Font LiberationMono_Regular_1 { get; set; }
         public static Font LiberationMono_Regular_2 { get; set; }
         public static Font LiberationMono_Regular_3 { get; set; }
@@ -16,6 +19,7 @@ namespace Suijin_cave
             Tileset = LoadImage("tileset.png");
             Handgun = LoadImage("handgun.png");
             Bullet = LoadImage("bullet.png");
+            M4A1 = LoadImage("m4a1.png");
 
             LiberationMono_Regular_1 = Graphics.NewFont("Assets/font/LiberationMono-Regular.ttf", 12);
             LiberationMono_Regular_2 = Graphics.NewFont("Assets/font/LiberationMono-Regular.ttf", 24);

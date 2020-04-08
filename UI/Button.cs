@@ -11,7 +11,7 @@ namespace Suijin_cave.UI
 
         public Action Action { get; set; }
 
-        public Font Font { get; set; } = Assets.LiberationMono_Regular_2;
+        public Font Font { get; set; } = Assets.LiberationMono_Regular_3;
 
         public string Text { get; set; }
 
@@ -48,8 +48,10 @@ namespace Suijin_cave.UI
                 Love.Graphics.SetColor(Color);
             }
 
+            Graphics.SetFont(Font);
             Graphics.Rectangle(DrawMode.Line, Rectangle);
-            Graphics.Printf(Text, Rectangle.Left, Rectangle.Center.Y, 100, AlignMode.Center);
+            Graphics.Printf(Text, Rectangle.Left, Rectangle.Top, 100, AlignMode.Left);
+            Graphics.SetColor(Color.White);
         }
     }
 }

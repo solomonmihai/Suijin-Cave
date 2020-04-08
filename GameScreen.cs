@@ -42,6 +42,11 @@ namespace Suijin_cave
             Player.MousePressed(x, y, button, isTouch);
         }
 
+        public override void KeyPressed(KeyConstant key, Scancode scancode, bool isRepeat)
+        {
+            Player.KeyPressed(key, scancode, isRepeat);
+        }
+
         public override void Update(float dt)
         {
             Player.Update(dt);
@@ -55,6 +60,8 @@ namespace Suijin_cave
             Map.Draw();
             Player.Draw();
             Camera.End();
+
+            Player.DrawUI();
         }
     }
 }

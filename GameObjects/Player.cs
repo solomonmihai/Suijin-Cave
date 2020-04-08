@@ -26,8 +26,11 @@ namespace Suijin_cave.GameObjects
 
             Guns = new List<Gun>()
             {
-                new Handgun(this)
+                new Handgun(this),
+                new M4A1(this)
             };
+
+            CurrentGunIndex = 0;
         }
 
         Vector2 direction;
@@ -103,14 +106,39 @@ namespace Suijin_cave.GameObjects
                 gun.UpdateBullets(dt);
             }
 
+            if (Guns[CurrentGunIndex].Type == Gun.GunType.Auto)
+            {
+                if (Mouse.IsDown(MouseButton.LeftButton))
+                {
+                    Guns[CurrentGunIndex].Shoot(MouseDirection);
+                }
+            }
+
             Guns[CurrentGunIndex].Update(dt, GameScreen.Camera.MouseInWorld);
         }
 
         public void MousePressed(float x, float y, int button, bool isTouch)
         {
-            var direction = new Vector2(GameScreen.Camera.MouseInWorld.X - Position.X, GameScreen.Camera.MouseInWorld.Y - Position.Y);
-            Guns[CurrentGunIndex].Shoot(direction);
+            if (Guns[CurrentGunIndex].Type == Gun.GunType.Pistol)
+            {
+                Guns[CurrentGunIndex].Shoot(MouseDirection);
+            }
         }
+
+        public void KeyPressed(KeyConstant key, Scancode scancode, bool isRepeat)
+        {
+            switch (scancode)
+            {
+                case Scancode.Number1:
+                    CurrentGunIndex = 0;
+                    break;
+                case Scancode.Number2:
+                    CurrentGunIndex = 1;
+                    break;
+            }
+        }
+
+        public Vector2 MouseDirection => new Vector2(GameScreen.Camera.MouseInWorld.X - Position.X, GameScreen.Camera.MouseInWorld.Y - Position.Y);
 
         public override void Update(float dt)
         {
@@ -123,11 +151,39 @@ namespace Suijin_cave.GameObjects
         {
             Graphics.SetColor(1, 1, 1);
             Graphics.Rectangle(DrawMode.Fill, Rectangle);
+            Guns[CurrentGunIndex].Draw();
+
             foreach (var g in Guns)
             {
                 g.DrawBulelts();
             }
-            Guns[CurrentGunIndex].Draw();
+        }
+
+        public void DrawUI()
+        {
+            DrawGunInventory();
+        }
+
+        int gunCellWidth = 60;
+
+        private void DrawGunInventory()
+        {
+            Graphics.SetColor(1, 1, 1);
+
+            for (int i = 0; i < Guns.Count; i++)
+            {
+                Graphics.Rectangle(DrawMode.Line, 200 + i * gunCellWidth, Graphics.GetHeight() - gunCellWidth * 1.2f, gunCellWidth, gunCellWidth);
+
+                if (CurrentGunIndex == i)
+                {
+                    Graphics.Rectangle(DrawMode.Line, 200 + gunCellWidth * 0.1f + i * gunCellWidth, Graphics.GetHeight() - gunCellWidth * 1.1f, gunCellWidth * 0.8f, gunCellWidth * 0.8f);
+                }
+
+                Graphics.Draw(Guns[i].Texture, 200 + i * gunCellWidth + (gunCellWidth / 2), Graphics.GetHeight() - gunCellWidth * 0.6f, -Mathf.PI / 6, 1.4f, 1.4f, Guns[i].Origin.X, Guns[i].Origin.Y);
+            
+                Graphics.SetFont();
+                Graphics.Print(Guns[i].Ammmo.ToString(), 200 + (i * gunCellWidth) + gunCellWidth * 0.25f, Graphics.GetHeight() - gunCellWidth * 1.5f);
+            }
         }
     }
 }

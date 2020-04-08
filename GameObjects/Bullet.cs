@@ -14,7 +14,7 @@ namespace Suijin_cave.GameObjects
             Origin = new Vector2(Texture.GetWidth() / 2, Texture.GetHeight() / 2);
             Direction = direction.Normalized();
             Rotation = Mathf.Atan2(Direction.Y, Direction.X);
-            Scale = new Vector2(1.8f, 1.8f);
+            Scale = new Vector2(1.8f);
             Speed = 800;
         }
 

@@ -19,6 +19,9 @@ namespace Suijin_cave
         public float Rotation { get; set; } = 0;
 
         public virtual void Update(float dt) { }
-        public virtual void Draw() { }
+        public virtual void Draw()
+        {
+            Love.Graphics.Draw(Texture, Position.X, Position.Y, Rotation, Scale.X, Scale.Y, Origin.X, Origin.Y);
+        }
     }
 }

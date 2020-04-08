@@ -2,22 +2,22 @@ using Love;
 
 namespace Suijin_cave.GameObjects
 {
-    public class Handgun : Gun
+    public class M4A1 : Gun
     {
         private Vector2 initialParentOffset;
-        public Handgun(GameObject parent)
+
+        public M4A1(GameObject parent)
         {
-            Type = GunType.Pistol;
+            Type = GunType.Auto;
 
             Parent = parent;
-            Texture = Assets.Handgun;
-            Scale = new Vector2(1.8f);
-
-            Origin = new Vector2(Texture.GetWidth() / 2, Texture.GetHeight() / 2);
-            ParentOffset = new Vector2(50, 40);
+            Texture = Assets.M4A1;
+            Scale = new Vector2(2);
+            ParentOffset = new Vector2(50, 50);
             initialParentOffset = ParentOffset;
+            Origin = new Vector2(Texture.GetWidth() / 2, Texture.GetHeight() / 2);
 
-            Ammmo = 30;
+            Ammmo = 90;
 
             InitParticleSystem();
         }
@@ -27,42 +27,21 @@ namespace Suijin_cave.GameObjects
             particleSystem = Graphics.NewParticleSystem(Help.CirclePrimitve, 32);
             particleSystem.SetParticleLifetime(0.1f, 0.2f);
             particleSystem.SetColors(new Vector4(1, 0.7f, 0, 1), new Vector4(1, 0.6f, 0, 1));
-            particleSystem.SetSizes(0.5f, 0f);
+            particleSystem.SetSizes(0.6f, 0f);
             particleSystem.SetRadialAcceleration(1, 10);
-            particleSystem.SetSpeed(20, 50);
+            particleSystem.SetSpeed(30, 70);
             particleSystem.SetSpread(Mathf.PI * 2);
+            particleSystem.SetLinearAcceleration(-10, 10, -10, 10);
         }
 
-        private static Vector2 bulletOffset = new Vector2(12, 0);
+        private float shootingRate;
+        private float _shootingRate = 0.12f;
 
-        protected override Vector2 GetBulletPosition(Vector2 direction, Vector2 bulletOffset)
-        {
-            // Stupid ass dog
-            // Increase the rotation a bit so you can get the accurate shooting point
-            // Dumbass
-
-            var pos = Parent.Position;
-
-            float a = Rotation;
-
-            if (flipped)
-            {
-                a += Mathf.Deg2Rad * 9;
-            }
-            else
-            {
-                a -= Mathf.Deg2Rad * 9;
-            }
-
-            pos.X += Mathf.Cos(a) * (ParentOffset.X + bulletOffset.X);
-            pos.Y += Mathf.Sin(a) * (ParentOffset.Y + bulletOffset.Y);
-
-            return pos;
-        }
+        private static Vector2 bulletOffset = new Vector2(20, 20);
 
         public override void Shoot(Vector2 direction)
         {
-            if (Ammmo > 0)
+            if (shootingRate <= 0 && Ammmo > 0)
             {
                 var pos = GetBulletPosition(direction, bulletOffset);
                 Bullets.Add(new Bullet(pos, direction));
@@ -72,18 +51,23 @@ namespace Suijin_cave.GameObjects
 
                 // Recoil
                 ParentOffset = initialParentOffset * 0.65f;
+                shootingRate = _shootingRate;
                 Ammmo--;
             }
         }
 
         public override void Update(float dt, Vector2 target)
         {
-            // Reset recoil
+            if (shootingRate > 0)
+            {
+                shootingRate -= dt;
+            }
+
             if (ParentOffset.X < initialParentOffset.X) ParentOffset += new Vector2(120 * dt, 0);
             if (ParentOffset.Y < initialParentOffset.Y) ParentOffset += new Vector2(0, 120 * dt);
 
-            RotateToTarget(target);
             FlipToTarget(target);
+            RotateToTarget(target);
         }
     }
 }

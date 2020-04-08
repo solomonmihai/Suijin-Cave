@@ -84,5 +84,19 @@ namespace Suijin_cave
             var outgoing = start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
             return outgoing;
         }
+
+        public static Canvas CirclePrimitve
+        {
+            get
+            {
+                var c = Graphics.NewCanvas(32, 32);
+                Graphics.SetCanvas(c);
+                Graphics.SetBlendMode(BlendMode.Alpha);
+                Graphics.SetColor(Color.White);
+                Graphics.Circle(DrawMode.Fill, 16, 16, 16);
+                Graphics.SetCanvas();
+                return c;
+            }
+        }
     }
 }

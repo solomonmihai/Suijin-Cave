@@ -8,26 +8,43 @@ namespace Suijin_cave
     public class MainMenu : Screen
     {
         Button playButton;
+        Button exitButton;
+
+        string title = "Suijin_cave";
+
+        int titleX;
+
         public override void Load()
         {
-            playButton = new Button(new Vector2(Graphics.GetWidth() / 2, Graphics.GetHeight() - Graphics.GetHeight() / 4), "Play", () => {
+            playButton = new Button(new Vector2(Graphics.GetWidth() / 2, Graphics.GetHeight() - Graphics.GetHeight() / 4), "Play", () =>
+            {
                 Game.CurrentScreenName = typeof(GameScreen).Name;
             });
+
+            exitButton = new Button(new Vector2(Graphics.GetWidth() / 2, playButton.Rectangle.Bottom + playButton.Rectangle.Height), "Exit", () =>
+            {
+                Event.Quit();
+            });
+
+            titleX = Graphics.GetWidth() / 2 - Assets.LiberationMono_Regular_3.GetWidth(title) / 2;
         }
 
         public override void Update(float dt)
         {
             playButton.Update();
+            exitButton.Update();
         }
 
         public override void Draw()
         {
             Graphics.SetColor(1, 1, 1, 1);
             Graphics.SetFont(Assets.LiberationMono_Regular_3);
-            Graphics.Printf("Suijin Cave", Love.Graphics.GetWidth() / 2, Love.Graphics.GetHeight() / 2, 0, AlignMode.Center);
-            playButton.Draw();
+            Graphics.Printf(title, titleX, Graphics.GetHeight() / 2, 1000, AlignMode.Left);
 
-            Graphics.Rectangle(DrawMode.Fill, 100, 100, 10, 100);
+            playButton.Draw();
+            exitButton.Draw();
+
+            Graphics.SetFont();
         }
     }
 }
