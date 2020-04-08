@@ -6,12 +6,12 @@ namespace Suijin_cave
 {
     public static class Help
     {
-        public static Rectangle FromPosition(this Rectangle rectangle, Vector2 position, int width, int height)
+        public static Rectangle RectangleFromPosition(Vector2 position, int width, int height)
         {
             return new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
         }
 
-        public static Rectangle FromPosition(this Rectangle rectangle, Vector2 position, int size)
+        public static Rectangle RectangleFromPosition(Vector2 position, int size)
         {
             return new Rectangle((int)(position.X - size / 2), (int)(position.Y - size / 2), size, size);
         }

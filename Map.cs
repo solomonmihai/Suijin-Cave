@@ -72,6 +72,7 @@ namespace Suijin_cave
 
         public void Draw()
         {
+            Graphics.SetColor(1, 1, 1);
             Graphics.Draw(spriteBatch);
         }
     }

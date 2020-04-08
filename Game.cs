@@ -21,20 +21,20 @@ namespace Suijin_cave
         }
 
         private static Dictionary<string, Screen> Screens { get; set; }
-        private string currentScreen;
-        public string CurrentScreen
+        private static string currentScreenName;
+        public static string CurrentScreenName
         {
-            get => currentScreen;
+            get => currentScreenName;
             set
             {
-                if (currentScreen != null)
+                if (currentScreenName != null)
                 {
-                    Screens[currentScreen].OnExit();
+                    Screens[currentScreenName].OnExit();
                 }
 
-                currentScreen = value;
+                currentScreenName = value;
 
-                Screens[currentScreen].OnEnter();
+                Screens[currentScreenName].OnEnter();
             }
         }
 
@@ -46,7 +46,8 @@ namespace Suijin_cave
 
             Screens = new Dictionary<string, Screen>()
             {
-                { typeof(GameScreen).Name, new GameScreen() }
+                { typeof(GameScreen).Name, new GameScreen() },
+                { typeof(MainMenu).Name, new MainMenu() }
             };
 
             foreach (var screen in Screens)
@@ -54,24 +55,40 @@ namespace Suijin_cave
                 screen.Value.Load();
             }
 
-            CurrentScreen = typeof(GameScreen).Name;
+            CurrentScreenName = typeof(MainMenu).Name;
+
+            Graphics.SetFont(Assets.LiberationMono_Regular_1);
         }
 
         public override void Update(float dt)
         {
-            if (CurrentScreen != null)
+            if (CurrentScreenName != null)
             {
-                Screens[CurrentScreen].Update(dt);
+                Screens[CurrentScreenName].Update(dt);
             }
         }
 
         public override void Draw()
         {
-            if (CurrentScreen != null)
+            if (CurrentScreenName != null)
             {
-                Screens[CurrentScreen].Draw();
+                Screens[CurrentScreenName].Draw();
             }
             Love.Graphics.Print(Love.Timer.GetFPS().ToString(), 5, 5);
+        }
+
+        public override void KeyPressed(KeyConstant key, Scancode scancode, bool isRepeat)
+        {
+            Screens[CurrentScreenName].KeyPressed(key, scancode, isRepeat);
+            if (key == KeyConstant.L)
+            {
+                GameScreen.Map = new Map("Assets/map.json");
+            }
+        }
+
+        public override void MousePressed(float x, float y, int button, bool isTouch)
+        {
+            Screens[CurrentScreenName].MousePressed(x, y, button, isTouch);
         }
     }
 }

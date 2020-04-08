@@ -1,6 +1,6 @@
 using Love;
-
 using System;
+using System.Collections.Generic;
 
 namespace Suijin_cave.GameObjects
 {
@@ -8,10 +8,26 @@ namespace Suijin_cave.GameObjects
     {
         int width;
 
+        public List<Gun> Guns { get; private set; }
+        public int CurrentGunIndex { get; private set; } = 0;
+
+        public override Rectangle Rectangle
+        {
+            get
+            {
+                return Help.RectangleFromPosition(Position, width);
+            }
+        }
+
         public Player()
         {
             Position = new Vector2(Graphics.GetWidth() / 2, Love.Graphics.GetHeight() / 2);
             width = 32;
+
+            Guns = new List<Gun>()
+            {
+                new Handgun(this)
+            };
         }
 
         Vector2 direction;
@@ -42,10 +58,21 @@ namespace Suijin_cave.GameObjects
             Position += direction * speed * dt;
         }
 
-        void CheckCollisions()
+        // Including bullets
+        private void CheckCollisions()
         {
             foreach (var rect in GameScreen.Map.Blocks)
             {
+                // Bullet collision 
+                foreach (var bullet in Guns[CurrentGunIndex].Bullets)
+                {
+                    if (bullet.Rectangle.IntersectsWith(rect))
+                    {
+                        bullet.Dead = true;
+                    }
+                }
+
+                // Player collisions
                 var collission = Help.RectangleCollision(Rectangle, (Rectangle)rect);
                 if (collission != Help.CollisionSide.None)
                 {
@@ -69,16 +96,38 @@ namespace Suijin_cave.GameObjects
             }
         }
 
+        private void UpdateGuns(float dt)
+        {
+            foreach (var gun in Guns)
+            {
+                gun.UpdateBullets(dt);
+            }
+
+            Guns[CurrentGunIndex].Update(dt, GameScreen.Camera.MouseInWorld);
+        }
+
+        public void MousePressed(float x, float y, int button, bool isTouch)
+        {
+            var direction = new Vector2(GameScreen.Camera.MouseInWorld.X - Position.X, GameScreen.Camera.MouseInWorld.Y - Position.Y);
+            Guns[CurrentGunIndex].Shoot(direction);
+        }
+
         public override void Update(float dt)
         {
             Move(dt);
             CheckCollisions();
-            Rectangle = Rectangle.FromPosition(Position, width);
+            UpdateGuns(dt);
         }
 
         public override void Draw()
         {
+            Graphics.SetColor(1, 1, 1);
             Graphics.Rectangle(DrawMode.Fill, Rectangle);
+            foreach (var g in Guns)
+            {
+                g.DrawBulelts();
+            }
+            Guns[CurrentGunIndex].Draw();
         }
     }
 }

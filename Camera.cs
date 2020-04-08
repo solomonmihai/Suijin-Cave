@@ -12,7 +12,7 @@ namespace Suijin_cave
             set
             {
                 position = value;
-                Viewport = Viewport.FromPosition(Position, Viewport.Width, Viewport.Height);
+                Viewport = Help.RectangleFromPosition(Position, Viewport.Width, Viewport.Height);
             }
         }
 
@@ -23,7 +23,18 @@ namespace Suijin_cave
             set
             {
                 zoom = value;
-                Viewport = Viewport.FromPosition(Position, (int)(Viewport.Width * zoom), (int)(Viewport.Height * zoom));
+                Viewport = Help.RectangleFromPosition(Position, (int)(Viewport.Width * zoom), (int)(Viewport.Height * zoom));
+            }
+        }
+
+        public Vector2 MouseInWorld
+        {
+            get
+            {
+                var mouse = Love.Mouse.GetPosition();
+                mouse *= zoom;
+                mouse += new Vector2(Viewport.X, Viewport.Y);
+                return mouse;
             }
         }
 
@@ -38,9 +49,9 @@ namespace Suijin_cave
         public void Begin()
         {
             Love.Graphics.Push();
-            Love.Graphics.Translate(-Viewport.X, -Viewport.Y);
             Love.Graphics.Scale(Zoom);
             Love.Graphics.Rotate(Rotation);
+            Love.Graphics.Translate(-Viewport.X, -Viewport.Y);
         }
 
         public void End()

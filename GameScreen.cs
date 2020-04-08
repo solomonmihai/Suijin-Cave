@@ -8,7 +8,7 @@ namespace Suijin_cave
     {
         public static Camera Camera { get; set; }
         public static Player Player { get; private set; }
-        public static Map Map { get; private set; }
+        public static Map Map { get; set; }
 
         public override void Load()
         {
@@ -35,6 +35,11 @@ namespace Suijin_cave
             {
                 Camera.Position = new Vector2(Camera.Position.X, Map.Size.Height * Map.TileWidth - Camera.Viewport.Height / 2);
             }
+        }
+
+        public override void MousePressed(float x, float y, int button, bool isTouch)
+        {
+            Player.MousePressed(x, y, button, isTouch);
         }
 
         public override void Update(float dt)
